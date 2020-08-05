@@ -4,7 +4,7 @@ import care_events from '../api/care_events';
 
 
 class App extends React.Component {
-  state = { events: [{title: 'loading' }]}
+  state = { events: []}
 
   fetchEvents = async () => {
     console.log('fetching---------');
@@ -20,7 +20,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
       <h1>CareJS</h1>
       <EventList events={this.state.events}/>
       </div>
