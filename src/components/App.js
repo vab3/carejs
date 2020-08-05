@@ -2,13 +2,30 @@ import React from 'react';
 import EventList from './EventList';
 import care_events from '../api/care_events';
 
-const events = care_events;
 
-export default () => {
-  return (
-    <div>
-    <h1>CareJS</h1>
-    <EventList events={events}/>
-    </div>
-  )
+class App extends React.Component {
+  state = { events: [{title: 'loading' }]}
+
+  fetchEvents = async () => {
+    console.log('fetching---------');
+    const response = await care_events.get();
+    const retval =  response.data.activities.concat(response.data.series);
+    console.log(response);
+    this.setState({ events: retval});
+  };
+
+  componentDidMount() {
+    this.fetchEvents();
+  }
+
+  render() {
+    return (
+      <div>
+      <h1>CareJS</h1>
+      <EventList events={this.state.events}/>
+      </div>
+    )
+  }
 }
+
+export default App;
